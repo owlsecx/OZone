@@ -18,13 +18,20 @@
 
 ## 📌 Overview
 
-DNS records, zone transfer, subdomain brute ║
+
+OZone is an offline, read-only DNS zone-file auditor that parses BIND-style zone files to detect misconfigurations and security weaknesses. It checks SOA and NS consistency, dangling and wildcard records, SPF/DKIM/DMARC email-authentication posture, and potential subdomain-takeover targets. Findings are mapped to CWE and MITRE ATT&CK, scored and graded, and exported as TXT, Markdown, JSON, CSV or SARIF.
 
 ---
 
 ## ✨ Features
 
-- DNS Enumeration & Zone Inspector
+
+- BIND-style zone-file parser with $ORIGIN/$TTL directive and record-type awareness
+- SOA/NS consistency checks (serial, refresh/retry/expire, lame delegation hints)
+- Dangling/wildcard record detection and subdomain-takeover candidate flagging
+- Email-authentication posture: SPF, DKIM and DMARC record presence and strength
+- CAA, TXT hygiene and TTL-anomaly review
+- CWE+ATT&CK mapping, score/grade and TXT/MD/JSON/CSV/SARIF export with --fail-on gating
 
 ---
 
@@ -37,8 +44,13 @@ DNS records, zone transfer, subdomain brute ║
 
 ## 🚀 Usage
 
+
 ```bash
-./OZone
+./OZone --scan -f sarif -o zone.sarif
+./OZone --zone /etc/bind/db.example.com --origin example.com
+./OZone -r /mnt/image --fail-on high --json
+./OZone --demo
+./OZone --help
 ```
 
 ---
